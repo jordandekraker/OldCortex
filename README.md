@@ -1,6 +1,6 @@
 ## Old Cortex
 
-The goal of this project is to make a contiguous surface or label that encompasses the paleo-, arch-, and neo-cortex.
+The goal of this project is to make a contiguous surface or label that encompasses the paleo-, archi-, and neo-cortex.
 
 3D BigBrain (Amunts et al., 2013) is used to achieve all topological details (eg. small folds inside the hippocampus; full set of neocortical gyri):
 
@@ -24,6 +24,10 @@ Here I used a Laplace coordinate framework (as in DeKraker et al., 2018). The Ra
 The Radial and Tangential coordinates were used as rho and theta, respectively, in a 2D polar mapping. Linear interpolation between 3D and 2D coordinates was used to generate the following visualization:
 
 ![Unfolding](images/lbl_unfold-linearpts.gif)
+
+### NOTE
+
+Currently `sourcedata/` and `.nii.gz` files are missing because they are too large to host on github. I will try and include them elsewhere.
 
 ## References
 
