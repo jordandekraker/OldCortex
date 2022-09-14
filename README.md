@@ -4,7 +4,7 @@ The goal of this project is to make a contiguous surface or label that encompass
 
 3D BigBrain (Auments et al., 2013) is used to achieve all topological details (eg. small folds inside the hippocampus; full set of neocortical gyri):
 
-![Source data](images/BigBrainSourceData.jpg)
+![Source data](images/BigBrainSourceData.png)
 
 Note that in addition to reducing these surfaces to a midthickness label, I also manually made changes including removing overlap between them and filling in some missing gaps.
 
