@@ -1,10 +1,10 @@
 % Map points between native and flat polar coordinates.
 
 clear; close all;
-Laplace_radial = niftiread('Laplace_radial.nii.gz');
-Laplace_tangential = niftiread('Laplace_tangential.nii.gz');
-LBL = niftiread('labelmap-postProc.nii.gz');
-hdr = niftiinfo('labelmap-postProc.nii.gz');
+Laplace_radial = niftiread('Laplace_radial.nii');
+Laplace_tangential = niftiread('Laplace_tangential.nii');
+LBL = niftiread('labelmap-postProc.nii');
+hdr = niftiinfo('labelmap-postProc.nii');
 
 i = find(LBL>0);
 sz = size(LBL);
@@ -13,6 +13,20 @@ Laplace_radial = Laplace_radial(i);
 Laplace_tangential = Laplace_tangential(i);
 LBL = LBL(i);
 
+%%
+figure('units','normalized','outerposition',[0 0 1 1])
+everyn = 50;
+[x,y,z] = ind2sub(sz,i(1:everyn:end));
+tl = LBL(1:everyn:end);
+tl(tl>4) = 1;
+tl(tl==2) = 5;
+tl(tl==3) = 2;
+tl(tl==5) = 3;
+tl(1) = 5;
+scatter3(x,y,z,1,tl,'.'); 
+axis equal tight off;
+colormap('hot');
+view(-90,0);
 
 %% rescale and view as polar plot
 
@@ -36,11 +50,11 @@ view(90,0);
 saveas(gcf,'Laplace_tangential-lat.png')
 
 figure;
-c = [1 0 0;...
-    0 1 0;...
-    0 0 1;...
-    0 1 1;...
-    0 0 0];
+c = [195 195 195;...
+    255 174 200;...
+    140 255 251;...
+    255 202 24;...
+    0 0 0]./255;
 l = LBL; l(l>5) = 5;
 polarscatter(lt(1:100:end),lr(1:100:end),1,l(1:100:end),'.');
 colormap(c);
@@ -56,11 +70,11 @@ lr = Laplace_radial;
 tri = linspace(0,.9999,150);
 tri = [tri tri(end:-1:1)];
 l = LBL; l(l>5) = 5;
-c = [1 0 0;...
-    0 1 0;...
-    0 0 1;...
-    0 1 1;...
-    0 0 0];
+c = [195 195 195;...
+    255 174 200;...
+    140 255 251;...
+    255 202 24;...
+    0 0 0]./255;
 
 npts = 50;
 
@@ -86,8 +100,10 @@ for n = 1:length(tri)
     % Write to the GIF File 
     if n == 1 
       imwrite(imind,cm,filename,'gif', 'DelayTime',1, 'Loopcount',inf); 
+      imwrite(imind,cm,'initialfold','png'); 
     elseif n==150
       imwrite(imind,cm,filename,'gif', 'DelayTime',1, 'WriteMode','append'); 
+      imwrite(imind, cm, 'finalfold', 'png');
     else
       imwrite(imind,cm,filename,'gif', 'DelayTime',1/30, 'WriteMode','append'); 
     end 
